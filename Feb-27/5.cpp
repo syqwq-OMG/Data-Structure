@@ -35,7 +35,7 @@ int main(){
         if(a[mid]<a[n]) r=mid;
         else l=mid+1;
     }
-    // cout<<l<<endl;
+
     if(tar>a[n]) cout<<bs(a,1,l-1,tar)-1;
     else cout<<bs(a,l,n,tar)-1;
 
