@@ -14,5 +14,13 @@
 
     mergesort , $O$ notation, $\Theta$ notation.
 
+- **Mar. 20th 2025**
+
+    master method, and divide-and-conquer skill
+
+- **Mar. 27th 2025**
+
+    some sorting methods: quicksort, selectsort, heapsort
+
 ## References
 
