@@ -71,7 +71,8 @@ int main(){
     
     // quick_sort(a,0,n-1);
     // select_sort(a,n);
-    heap_sort(a,n);
+    // heap_sort(a,n);
+    build(a,n);
 
     rep(i,0,n-1) cout<<a[i]<<" ";
 

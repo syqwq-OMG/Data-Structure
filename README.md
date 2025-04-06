@@ -22,5 +22,9 @@
 
     some sorting methods: quicksort, selectsort, heapsort
 
+- **Apr. 3rd 2025**
+  
+  learn stack, link list, double linked list and queue
+
 ## References
 
