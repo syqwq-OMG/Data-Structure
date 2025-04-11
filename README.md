@@ -25,6 +25,10 @@
 - **Apr. 3rd 2025**
   
   learn stack, link list, double linked list and queue
+  
+- **Apr. 10th 2025**
+  
+  learn hashtable and 2 ways to deals with collision
 
 ## References
 
