@@ -30,5 +30,8 @@
   
   learn hashtable and 2 ways to deals with collision
 
+- **Apr. 24th 2025**
+
+    learn binary search tree and some basic tree structuen like B-tree, B+-tree....etc.
 ## References
 
