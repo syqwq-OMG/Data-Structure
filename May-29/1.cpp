@@ -15,10 +15,8 @@ typedef unsigned long long ull;
 typedef pair<int, int> PII;
 typedef vector<ll> vi;
 typedef vector<PII> vpii;
-// template <class T>
-// using vc = vector<T>;
-// template <class T>
-// using vvc = vc<vc<T>>;
+// template <class T> using vc = vector<T>;
+// template <class T> using vvc = vc<vc<T>>;
 // https://trap.jp/post/1224/
 #define rep1(a) for (ll _ = 0; _ < ll(a); _++)
 #define rep2(i, a) for (ll i = 1; i <= ll(a); i++)
@@ -35,22 +33,19 @@ typedef vector<PII> vpii;
 #define len(x) ll(x.size())
 #define MIN(v) *min_element(all(v))
 #define MAX(v) *max_element(all(v))
-template <class T, class S>
-inline bool chmax(T &_a, const S &_b) {
+template <class T, class S> inline bool chmax(T &_a, const S &_b) {
     return (_a < _b ? _a = _b, 1 : 0);
 }
-template <class T, class S>
-inline bool chmin(T &_a, const S &_b) {
+template <class T, class S> inline bool chmin(T &_a, const S &_b) {
     return (_a > _b ? _a = _b, 1 : 0);
 }
-template <class T>
-void wt(T _x) { cout << _x << " "; }
-template <class T>
-void print(T _x) { cout << _x << endl; }
-template <class T>
-void print(const T *_arr, int _l, int _r) {
-    if (_l <= _r) rep(i, _l, _r) cout << _arr[i] << " \n"[i == _r];
-    else per(i, _l, _r) cout << _arr[i] << " \n"[i == _r];
+template <class T> void wt(T _x) { cout << _x << " "; }
+template <class T> void print(T _x) { cout << _x << endl; }
+template <class T> void print(const T *_arr, int _l, int _r) {
+    if (_l <= _r)
+        rep(i, _l, _r) cout << _arr[i] << " \n"[i == _r];
+    else
+        per(i, _l, _r) cout << _arr[i] << " \n"[i == _r];
 }
 void YES(bool t = 1) { cout << (t ? "YES" : "NO") << endl; }
 void NO(bool t = 1) { YES(!t); }
@@ -61,12 +56,32 @@ void no(bool t = 1) { yes(!t); }
 // ===========================================================
 // author: syqwq
 // ===========================================================
+cint N = 2e4 + 5;
+cint inf=0x7fffffff;
+
+int n;
+PII a[N];
 
 signed main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     // ================================================
-
+    cin >> n;
+    rep(i, n) {
+        int x, y;
+        cin >> x >> y;
+        a[i] = {x, y};
+    }
+    sort(a + 1, a + 1 + n, [](PII p1,PII p2)->bool{
+        if(p1.second==p2.second) return p1.first<p2.first;
+        else return p1.second<p2.second;
+    });
+    int cnt = 0, r = -inf;
+    rep(i, n) {
+        if (a[i].first >= r)
+            cnt++, r = a[i].second;
+    }
+    print(n - cnt);
     // ================================================
     return 0;
 }

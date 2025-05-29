@@ -6,6 +6,7 @@
 #include <iostream>
 #include <map>
 #include <queue>
+#include <stack>
 #include <unordered_map>
 #include <vector>
 using namespace std;
@@ -35,22 +36,19 @@ typedef vector<PII> vpii;
 #define len(x) ll(x.size())
 #define MIN(v) *min_element(all(v))
 #define MAX(v) *max_element(all(v))
-template <class T, class S>
-inline bool chmax(T &_a, const S &_b) {
+template <class T, class S> inline bool chmax(T &_a, const S &_b) {
     return (_a < _b ? _a = _b, 1 : 0);
 }
-template <class T, class S>
-inline bool chmin(T &_a, const S &_b) {
+template <class T, class S> inline bool chmin(T &_a, const S &_b) {
     return (_a > _b ? _a = _b, 1 : 0);
 }
-template <class T>
-void wt(T _x) { cout << _x << " "; }
-template <class T>
-void print(T _x) { cout << _x << endl; }
-template <class T>
-void print(const T *_arr, int _l, int _r) {
-    if (_l <= _r) rep(i, _l, _r) cout << _arr[i] << " \n"[i == _r];
-    else per(i, _l, _r) cout << _arr[i] << " \n"[i == _r];
+template <class T> void wt(T _x) { cout << _x << " "; }
+template <class T> void print(T _x) { cout << _x << endl; }
+template <class T> void print(const T *_arr, int _l, int _r) {
+    if (_l <= _r)
+        rep(i, _l, _r) cout << _arr[i] << " \n"[i == _r];
+    else
+        per(i, _l, _r) cout << _arr[i] << " \n"[i == _r];
 }
 void YES(bool t = 1) { cout << (t ? "YES" : "NO") << endl; }
 void NO(bool t = 1) { YES(!t); }
@@ -61,12 +59,38 @@ void no(bool t = 1) { yes(!t); }
 // ===========================================================
 // author: syqwq
 // ===========================================================
+cint N = 1e4 + 4;
+
+string s;
+int sz = 0;
+char stk[N];
+int cnt[N];
+bitset<N> st; // in stk
+
+void push(char c) { stk[++sz] = c; }
+char pop() { return stk[sz--]; }
+
+void solve() {
+    cin >> s;
+    for (auto c : s)
+        cnt[c - 'a']++;
+    for (auto c : s) {
+        int t = c - 'a';
+        if (!st[t]) {
+            while (sz && stk[sz] > c && cnt[stk[sz] - 'a'])
+                st[pop() - 'a'] = 0;
+            push(c), st[t] = 1;
+        }
+        cnt[t]--;
+    }
+    rep(i, sz) cout << stk[i];
+}
 
 signed main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     // ================================================
-
+    solve();
     // ================================================
     return 0;
 }
