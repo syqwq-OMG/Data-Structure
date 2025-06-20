@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <queue>
+#include <vector>
 using namespace std;
 #define cint const int
 #define cdouble const double
@@ -82,8 +84,50 @@ cint PRECISION = 5;
 // Problem: $(PROBLEM)
 // URL: $(URL)
 // ===========================================================
+cint N = 1e5 + 5;
+cdouble eps = 1e-5;
+
+int n, m;
+int s, e;
+double dis[N];
+bitset<N> st;
+vector<pair<int, double>> h[N];
+
+void add(int u, int v, double w) { h[u].push_back({v, w}); }
+
+double dijkstra() {
+    priority_queue<pair<double, int>> pq;
+    dis[s] = 1.0;
+    pq.push({1, 1});
+    while (pq.size()) {
+        int u = pq.top().se;
+        pq.pop();
+        if (st[u]) continue;
+        st[u] = 1;
+        for (auto tt : h[u]) {
+            auto v = tt.fi;
+            auto w = tt.se;
+            if (chmax(dis[v], dis[u] * w)) pq.push({dis[v], v});
+        }
+    }
+    return dis[e];
+}
 
 void solve() {
+    // input
+    cin >> n >> m;
+    rep(m) {
+        int u, v;
+        double w;
+        cin >> u >> v >> w;
+        add(u + 1, v + 1, w);
+        add(v + 1, u + 1, w);
+    }
+    cin >> s >> e;
+    s++, e++;
+    double x = dijkstra();
+    if (abs(x) < eps) print(0.000);
+    else print(x);
 }
 
 signed main() {

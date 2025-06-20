@@ -40,8 +40,6 @@ constexpr double inf<double> = inf<ll>;
 #define edd(x, n) x + 1 + n
 #define MIN(v, n) *min_element(all(v, n))
 #define MAX(v, n) *max_element(all(v, n))
-#define LB(c, n, x) distance(c, lower_bound(all(c, n), (x)))
-#define UB(c, n, x) distance(c, upper_bound(all(c, n), (x)))
 auto chmax = [](auto &_a, const auto &_b) -> bool { return _a < _b ? _a = _b, 1 : 0; };
 auto chmin = [](auto &_a, const auto &_b) -> bool { return _a > _b ? _a = _b, 1 : 0; };
 template <class T>
@@ -58,7 +56,7 @@ void print(Head &&head, Tail &&...tail) {
     print(std::forward<Tail>(tail)...);
 }
 template <class T>
-void arprint(const T *_arr, int _l, int _r) {
+void aprint(const T *_arr, int _l, int _r) {
     if (_l <= _r) rep(i, _l, _r) cout << _arr[i] << " \n"[i == _r];
     else per(i, _l, _r) cout << _arr[i] << " \n"[i == _r];
 }
@@ -82,8 +80,28 @@ cint PRECISION = 5;
 // Problem: $(PROBLEM)
 // URL: $(URL)
 // ===========================================================
+cint N=1e5+5;
+
+int n,cost[N<<1],gas[N<<1],a[N<<1];
 
 void solve() {
+    cin>>n;
+    rep(i,n)cin>>gas[i],gas[n+i]=gas[i];
+    rep(i,n)cin>>cost[i],cost[n+i]=cost[i];
+    n<<=1;
+    rep(i,n) a[i]=gas[i]-cost[i];
+
+    int i=1,len=0,sum=0;
+    while(i<=n){
+        if(sum+a[i]<0) sum=0,len=0;
+        else{
+            sum+=a[i],len++;
+            if(len==n/2) return print(i-n/2);
+        }
+        i++;
+    }
+
+    print(-1);
 }
 
 signed main() {

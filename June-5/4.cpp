@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <queue>
 using namespace std;
 #define cint const int
 #define cdouble const double
@@ -82,8 +83,43 @@ cint PRECISION = 5;
 // Problem: $(PROBLEM)
 // URL: $(URL)
 // ===========================================================
+cint N = 1e4 + 4;
+
+int n, m;
+int noo[N];
+bitset<N> st;
+int dis[N];
+int g[N][N];
+priority_queue<PII> pq;
 
 void solve() {
+    cin >> n >> m;
+    rep(i, n) rep(j, n) g[i][j] = inf<int>;
+    rep(i, n) g[i][i] = 0, dis[i] = inf<int>;
+
+    rep(m) {
+        int x, y, w;
+        cin >> x >> y >> w;
+        x++, y++, chmin(g[x][y], w), chmin(g[y][x], w);
+    }
+    rep(i, n) cin >> noo[i];
+
+    pq.push({0, 1}), dis[1] = 0;
+    while (pq.size()) {
+        int x = pq.top().se;
+        pq.pop();
+
+        if (st[x]) continue;
+        st[x] = 1;
+
+        rep(y, n) {
+            if (y == x || g[y][x] == inf<int>) continue;
+            int w = g[x][y];
+            if (dis[x] + w < dis[y] && dis[x] + w < noo[y]) dis[y] = dis[x] + w, pq.push({-dis[y], y});
+        }
+    }
+    rep(i, n) if (dis[i] == inf<int>) dis[i] = -1;
+    arprint(dis, 1, n);
 }
 
 signed main() {

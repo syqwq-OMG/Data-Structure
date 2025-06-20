@@ -82,8 +82,39 @@ cint PRECISION = 5;
 // Problem: $(PROBLEM)
 // URL: $(URL)
 // ===========================================================
+cint N = 205;
+cint mod = 1e9 + 7;
+
+int n, m;
+int k;
+vpii h[N];
+int dis[N];
+bitset<N> st;
 
 void solve() {
+    cin >> m >> n >> k;
+    rep(i, n) dis[i] = inf<int>;
+    rep(m) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        h[u].push_back({v, w});
+    }
+
+    priority_queue<PII> pq;
+    pq.push({0, k}), dis[k] = 0;
+    while (pq.size()) {
+        int x = pq.top().se;
+        pq.pop();
+        if (st[x]) continue;
+        st[x] = 1;
+        for (auto tt : h[x]) {
+            int y = tt.fi, w = tt.se;
+            if (chmin(dis[y], dis[x] + w)) pq.push({-dis[y], y});
+        }
+    }
+    int t = MAX(dis, n);
+    if (t == inf<int>) print(-1);
+    else print(t);
 }
 
 signed main() {
